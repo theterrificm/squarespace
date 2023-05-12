@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squarespace</title>
+    <style>
+        .form-step {
+            display: none;
+        }
+                
+        .form-step.active {
+              display: block;
+          }
+                
+        .btn {
+            margin-top: 10px;
+        }
+        .p-bar{
+            width: 50px;
+            margin-right: 1px;
+            height: 10px;
+            background-color: lightgray;
+        }
+        .p-bar:first-of-type {
+            background: green;
+        }
+        #ppbar{
+            width: 100%;
+            display: block;
+            display: inline-flex;
+        }
+
+    </style>
+</head>
+<body>
+    <form id="multi-step-form" action="form-process.php" method="POST">
+        <div id="ppbar">
+            <div class="p-bar"></div>
+            <div class="p-bar"></div>
+        </div>
+        <div class="form-step active" id="step-1">
+            <h2>Step 1</h2>
+            <label for="name">Name:</label>
+            <input type="text" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+            <button type="button" onclick="nextStep(2)">Next</button>
+        </div>
+        
+        <div class="form-step" id="step-2">
+            <h2>Step 2</h2>
+            <button type="button" onclick="prevStep(1)">Previous</button>
+            <label for="message">Message:</label>
+            <textarea name="message" required></textarea>
+            <button type="button" onclick="nextStep(3)">Next</button>
+        </div>
+        
+        <div class="form-step" id="step-3">
+            <h2>Step 3</h2>
+            <button type="button" onclick="prevStep(2)">Previous</button>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <script>
+        var currentStep = 1;
+        
+        function nextStep(step) {
+            document.getElementById('step-' + currentStep).classList.remove('active');
+            document.getElementById('step-' + step).classList.add('active');
+            document.getElementsByClassName('p-bar')[step -1 ].style.backgroundColor = 'green'
+            currentStep = step;
+        }
+        
+        function prevStep(step) {
+            document.getElementById('step-' + currentStep).classList.remove('active');
+            document.getElementById('step-' + step).classList.add('active');
+            document.getElementsByClassName('p-bar')[step  ].style.backgroundColor = 'lightgray'
+            currentStep = step;
+        }
+    </script>
+
+
+</body>
+</html>
